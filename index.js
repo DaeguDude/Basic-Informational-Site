@@ -1,27 +1,24 @@
 // I need to create node.js server
-const http = require("http");
+// const http = require("http");
 const fs = require("fs");
+const express = require("express");
+const app = express();
+const port = 3000;
 
-const port = 8080;
-
-const server = http.createServer((req, res) => {
-  switch (req.url) {
-    case "/":
-      handleRequest(res, "index");
-      break;
-    case "/about":
-      handleRequest(res, "about");
-      break;
-    case "/contact-me":
-      handleRequest(res, "contact-me");
-      break;
-    default:
-      handleRequest(res);
-  }
+app.get("/", (req, res) => {
+  handleRequest(res, "index");
 });
 
-server.listen(port, () => {
-  console.log(`Server running at port ${port}`);
+app.get("/about", (req, res) => {
+  handleRequest(res, "about");
+});
+
+app.get("/contact-me", (req, res) => {
+  handleRequest(res, "contact-me");
+});
+
+app.listen(port, () => {
+  console.log(`Example app listening on port ${port}`);
 });
 
 function handleRequest(res, pageName = "404") {
